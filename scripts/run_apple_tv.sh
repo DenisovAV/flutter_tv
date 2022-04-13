@@ -3,7 +3,7 @@ set -x
 #added all scripts here to run appletv locally from one script
 
 # set your own path to custom engine here
-export FLUTTER_LOCAL_ENGINE=/Users/Aleksandr_Denisov/Work/engine/src
+export FLUTTER_LOCAL_ENGINE=/Users/Aleksandr_Denisov/Work/original_engine/src
 
 # Clean old mess
 fvm flutter clean
@@ -19,7 +19,7 @@ cd ios
 
 sh ../scripts/copy_framework.sh debug_sim FLUTTER_LOCAL_ENGINE
 
-#fvm flutter pub get
+fvm flutter pub get
 
 #pod install
 
