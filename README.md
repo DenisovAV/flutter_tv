@@ -2,6 +2,8 @@
 
 A new Flutter for TV project.
 
+![](https://github.com/DenisovAV/flutter_tv/blob/master/assets/description/preview.png)
+
 ## Getting Started
 
 To run on AppleTV:
