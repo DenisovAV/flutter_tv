@@ -17,20 +17,16 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constrains) {
-        return Focus(
-          child: InkWell(
-            onTap: onTap,
-            child: Hero(
-              tag: movie.name,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('assets/images/${movie.image}.png'),
-                    ),
-                  ),
+        return InkWell(
+          onTap: onTap,
+          child: Hero(
+            tag: movie.name,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/${movie.image}.png'),
                 ),
               ),
             ),

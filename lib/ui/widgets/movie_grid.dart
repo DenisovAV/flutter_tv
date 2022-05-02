@@ -29,8 +29,8 @@ class MovieGrid extends StatelessWidget {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: MyPlatform.isTv ? 5 : (context.screenSize.width / 250).round(),
               childAspectRatio: 1.6,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              crossAxisSpacing: MyPlatform.isTv ? 50 : 10,
+              mainAxisSpacing: MyPlatform.isTv ? 50 : 10,
             ),
             delegate: SliverChildBuilderDelegate(
               (context, index) => getMovieCard()(
@@ -40,7 +40,6 @@ class MovieGrid extends StatelessWidget {
               ),
               childCount: movies.length,
             ),
-
           ),
         )
       ],

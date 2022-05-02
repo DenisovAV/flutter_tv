@@ -21,6 +21,7 @@ class TvMovieCard extends StatefulWidget {
 
 class _TvMovieCardState extends State<TvMovieCard> {
   bool _isFocused = false;
+  static const _hoverDuration = Duration(milliseconds: 300);
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +37,21 @@ class _TvMovieCardState extends State<TvMovieCard> {
         }
         return KeyEventResult.ignored;
       },
-      child: Container(
-        decoration: BoxDecoration(
+      child: AnimatedScale(
+        scale: _isFocused ? 1.1 : 1.0,
+        duration: _hoverDuration,
+        child: AnimatedPhysicalModel(
           borderRadius: BorderRadius.circular(25),
-          border: Border.all(
-            color: _isFocused ? Colors.teal : Colors.transparent,
-            width: 10,
+          color: Colors.black,
+          shape: BoxShape.rectangle,
+          elevation: _isFocused ? 25 : 10,
+          shadowColor: Colors.black,
+          duration: _hoverDuration,
+          curve: Curves.fastOutSlowIn,
+          child: MovieCard(
+            movie: widget.movie,
+            index: widget.index,
           ),
-        ),
-        child: MovieCard(
-          movie: widget.movie,
-          index: widget.index,
         ),
       ),
     );

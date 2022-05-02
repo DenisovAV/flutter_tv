@@ -30,7 +30,7 @@ class MovieDetails extends StatelessWidget {
         slivers: <Widget>[
           SliverAppBar(
             backgroundColor: Colors.white,
-            expandedHeight: 500.0,
+            expandedHeight: MyPlatform.isTv ? 500.0 : 200.0,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Hero(
@@ -50,8 +50,8 @@ class MovieDetails extends StatelessWidget {
               Center(
                 child: Text(
                   movie.name,
-                  style: const TextStyle(
-                    fontSize: 24.0,
+                  style: TextStyle(
+                    fontSize: MyPlatform.isTv ? 48.0 : 24.0,
                   ),
                 ),
               ),
@@ -59,8 +59,8 @@ class MovieDetails extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 20, left: 20, right: 10),
                 child: Text(
                   movie.meta,
-                  style: const TextStyle(
-                    fontSize: 16.0,
+                  style: TextStyle(
+                    fontSize: MyPlatform.isTv ? 32.0 : 16.0,
                   ),
                 ),
               ),
@@ -68,8 +68,17 @@ class MovieDetails extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
                 child: Text(
                   movie.synopsis,
-                  style: const TextStyle(
-                    fontSize: 12.0,
+                  style: TextStyle(
+                    fontSize: MyPlatform.isTv ? 18.0 : 12.0,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                child: Text(
+                  'Rating: ${movie.rating}',
+                  style: TextStyle(
+                    fontSize: MyPlatform.isTv ? 28.0 :14.0,
                   ),
                 ),
               ),
