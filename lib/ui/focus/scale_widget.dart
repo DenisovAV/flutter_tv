@@ -3,11 +3,10 @@ import 'package:flutter_tv/ui/focus/extensions.dart';
 
 class ScaleWidget extends StatelessWidget {
   final Widget child;
-  final double ratio;
+  final double ratio = width / (kTvSize.width * pixelRatio);
 
-  const ScaleWidget({
+  ScaleWidget({
     required this.child,
-    required this.ratio,
     Key? key,
   }) : super(key: key);
 

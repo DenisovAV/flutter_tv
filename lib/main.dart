@@ -7,7 +7,6 @@ import 'package:flutter_tv/ui/focus/scale_widget.dart';
 import 'package:flutter_tv/ui/movies_screen.dart';
 import 'package:flutter_tv/ui/widgets/platform.dart';
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   if (MyPlatform.isTVOS) {
@@ -22,14 +21,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const screen = MoviesScreen();
-    final width = WidgetsBinding.instance!.window.physicalSize.width;
-    final pixelRatio = WidgetsBinding.instance!.window.devicePixelRatio;
+    print(MyPlatform.isAndroidTV);
+    print(kTvSize.width);
+    print(width);
+    print(pixelRatio);
     return MaterialApp(
       home: BlocProvider<MoviesBloc>(
           create: (_) => MoviesBloc()..add(MoviesEvent.initializing),
-          child: MyPlatform.isTv
+          child: isScaled
               ? ScaleWidget(
-                  ratio: width / (kTvSize.width * pixelRatio),
                   child: screen,
                 )
               : screen),
