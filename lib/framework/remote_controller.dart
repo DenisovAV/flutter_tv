@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tv/framework/key_simulator.dart';
 
 class RemoteController {
   static RemoteController? _instance;
@@ -17,6 +20,21 @@ class RemoteController {
 
   RemoteController._();
 
+  void init() {
+    channel.setMessageHandler(_onMessage);
+    HardwareKeyboard.instance.addHandler(handleKeyMessage);
+  }
+
+  bool handleKeyMessage(KeyEvent message) {
+    if (LogicalKeyboardKey.goBack == message.logicalKey) {
+      final message = const JSONMethodCodec().encodeMethodCall(const MethodCall('popRoute'));
+      ServicesBinding.instance!.defaultBinaryMessenger
+          .handlePlatformMessage(SystemChannels.navigation.name, message, (_) {});
+      return true;
+    }
+    return false;
+  }
+
   void triggerKey(LogicalKeyboardKey key) {
     if (LogicalKeyboardKey.arrowLeft == key) {
       FocusManager.instance.primaryFocus!.focusInDirection(TraversalDirection.left);
@@ -27,10 +45,6 @@ class RemoteController {
     } else if (LogicalKeyboardKey.arrowDown == key) {
       FocusManager.instance.primaryFocus!.focusInDirection(TraversalDirection.down);
     }
-  }
-
-  void init() {
-    channel.setMessageHandler(_onMessage);
   }
 
   Future<void> _onMessage(dynamic arguments) async {
@@ -50,7 +64,7 @@ class RemoteController {
 
         // need to move min distance in any direction
         // the 150px needs tweaking and might needs to be variable based on location of the widget on screen and duration/time of the movement to make it smoother
-        if ((moveX.abs() >= 150) || (moveY.abs() >= 150)) {
+        if ((moveX.abs() >= 400) || (moveY.abs() >= 400)) {
           // determine direction horz/vert
           if (moveX.abs() >= moveY.abs()) {
             if (moveX >= 0) {
@@ -73,6 +87,20 @@ class RemoteController {
       }
     } else if (type == 'ended') {
       isMoving = false;
+    } else if (type == 'click_s') {
+      unawaited(
+        simulateKeyEvent(
+          PhysicalKeyboardKey.enter,
+          isDown: true,
+        ),
+      );
+    } else if (type == 'click_e') {
+      unawaited(
+        simulateKeyEvent(
+          PhysicalKeyboardKey.enter,
+          isDown: false,
+        ),
+      );
     }
   }
 }

@@ -10,7 +10,9 @@ import 'package:flutter_tv/ui/widgets/platform.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  RemoteController().init();
+  if (MyPlatform.isTVOS) {
+    RemoteController().init();
+  }
   runApp(const MyApp());
 }
 
