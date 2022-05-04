@@ -17,7 +17,11 @@ sh scripts/switch_target.sh tvos
 
 cd ios
 
-sh ../scripts/copy_framework.sh debug FLUTTER_LOCAL_ENGINE
+#choose the necessary type of the engine
+#  'debug_sim' - engine for apple tv simulator
+#  'debug' - engine for real apple tv device, debug mode
+#  'release' - engine for real apple tv device, release mode
+sh ../scripts/copy_framework.sh debug_sim FLUTTER_LOCAL_ENGINE
 
 fvm flutter pub get
 
