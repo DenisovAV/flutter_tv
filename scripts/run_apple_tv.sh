@@ -17,11 +17,11 @@ sh scripts/switch_target.sh tvos
 
 cd ios
 
-sh ../scripts/copy_framework.sh debug_sim FLUTTER_LOCAL_ENGINE
+sh ../scripts/copy_framework.sh debug FLUTTER_LOCAL_ENGINE
 
 fvm flutter pub get
 
-#pod install
+pod install
 
 #add local engine in xcode project
 sed -i '' "s#FLUTTER_LOCAL_ENGINE[[:space:]]=[[:space:]].*;#FLUTTER_LOCAL_ENGINE = \"${FLUTTER_LOCAL_ENGINE}\";#g" Runner.xcodeproj/project.pbxproj
