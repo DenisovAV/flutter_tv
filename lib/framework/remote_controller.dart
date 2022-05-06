@@ -54,18 +54,20 @@ class RemoteController {
     late LogicalKeyboardKey key;
 
     if (type == 'started') {
+      print('RCU STARTED');
       swipeStartX = x;
       swipeStartY = y;
       isMoving = true;
     } else if (type == 'move') {
+      print('RCU MOVE');
       if (isMoving) {
         var moveX = swipeStartX - x;
         var moveY = swipeStartY - y;
 
         // need to move min distance in any direction
-        // the 150px needs tweaking and might needs to be variable based on location of the widget on screen and duration/time of the movement to make it smoother
+        // the 400px needs tweaking and might needs to be variable based on location of the widget on screen and duration/time of the movement to make it smoother
         if ((moveX.abs() >= 400) || (moveY.abs() >= 400)) {
-          // determine direction horz/vert
+          // determine direction horizontal or vertical
           if (moveX.abs() >= moveY.abs()) {
             if (moveX >= 0) {
               key = LogicalKeyboardKey.arrowLeft;
@@ -87,7 +89,13 @@ class RemoteController {
       }
     } else if (type == 'ended') {
       isMoving = false;
-    } else if (type == 'click_s') {
+      print('RCU END');
+    } else if (type == 'cancelled') {
+      print('RCU CANCEL');
+    }else if (type == 'loc') {
+      print('RCU LOC');
+    }else if (type == 'click_s') {
+      print('RCU CLICK_S');
       unawaited(
         simulateKeyEvent(
           PhysicalKeyboardKey.enter,
@@ -95,12 +103,15 @@ class RemoteController {
         ),
       );
     } else if (type == 'click_e') {
+      print('RCU CLICK_E');
       unawaited(
         simulateKeyEvent(
           PhysicalKeyboardKey.enter,
           isDown: false,
         ),
       );
+    } else{
+      print('RCU NOTHING $type');
     }
   }
 }
