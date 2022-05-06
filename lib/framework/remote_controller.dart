@@ -54,12 +54,10 @@ class RemoteController {
     late LogicalKeyboardKey key;
 
     if (type == 'started') {
-      print('RCU STARTED');
       swipeStartX = x;
       swipeStartY = y;
       isMoving = true;
     } else if (type == 'move') {
-      print('RCU MOVE');
       if (isMoving) {
         var moveX = swipeStartX - x;
         var moveY = swipeStartY - y;
@@ -89,13 +87,9 @@ class RemoteController {
       }
     } else if (type == 'ended') {
       isMoving = false;
-      print('RCU END');
     } else if (type == 'cancelled') {
-      print('RCU CANCEL');
-    }else if (type == 'loc') {
-      print('RCU LOC');
-    }else if (type == 'click_s') {
-      print('RCU CLICK_S');
+    } else if (type == 'loc') {
+    } else if (type == 'click_s') {
       unawaited(
         simulateKeyEvent(
           PhysicalKeyboardKey.enter,
@@ -103,15 +97,12 @@ class RemoteController {
         ),
       );
     } else if (type == 'click_e') {
-      print('RCU CLICK_E');
       unawaited(
         simulateKeyEvent(
           PhysicalKeyboardKey.enter,
           isDown: false,
         ),
       );
-    } else{
-      print('RCU NOTHING $type');
     }
   }
 }
