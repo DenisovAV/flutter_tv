@@ -7,8 +7,6 @@
 # Exit on error
 set -e
 
-export FLUTTER_LOCAL_ENGINE=/Users/Aleksandr_Denisov/Work/original_engine/src
-
 if [ "$1" == "release" ]; then
 	echo "Coping Flutter.framework (release)..."
 	DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_release/clang_x64
