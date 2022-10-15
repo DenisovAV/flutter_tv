@@ -3,7 +3,7 @@ set -x
 #added all scripts here to run appletv locally from one script
 
 # set your own path to custom engine here
-export FLUTTER_LOCAL_ENGINE=/Users/Aleksandr_Denisov/Work/engine
+export FLUTTER_LOCAL_ENGINE=/Users/Aleksandr_Denisov/Work/engine/src
 
 # Clean old mess
 fvm flutter clean
