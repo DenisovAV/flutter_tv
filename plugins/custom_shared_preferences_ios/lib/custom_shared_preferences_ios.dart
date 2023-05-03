@@ -1,12 +1,7 @@
 // ignore_for_file: avoid_types_on_closure_parameters
 
 import 'dart:async';
-import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:meta/meta.dart';
-
-import 'method_channel_shared_preferences_ios.dart';
 import 'shared_preferences_platform_interface_ios.dart';
 
 /// Wraps NSUserDefaults (on iOS) providing a persistent store for simple data.
@@ -17,25 +12,8 @@ class CustomSharedPreferencesIOS {
 
   static const String _prefix = 'flutter.';
   static Completer<CustomSharedPreferencesIOS>? _completer;
-  static bool _manualDartRegistrationNeeded = true;
 
-  static SharedPreferencesStorePlatformIOS get _store {
-    if (_manualDartRegistrationNeeded) {
-      // Only do the initial registration if it hasn't already been overridden
-      // with a non-default instance.
-      if (!kIsWeb &&
-          SharedPreferencesStorePlatformIOS.instance is MethodChannelSharedPreferencesStoreIOS) {
-        if (Platform.isLinux) {
-          // SharedPreferencesStorePlatformIOS.instance = SharedPreferencesLinux();
-        } else if (Platform.isWindows) {
-          // SharedPreferencesStorePlatformIOS.instance = SharedPreferencesWindows();
-        }
-      }
-      _manualDartRegistrationNeeded = false;
-    }
-
-    return SharedPreferencesStorePlatformIOS.instance;
-  }
+  static SharedPreferencesStorePlatformIOS get _store => SharedPreferencesStorePlatformIOS.instance;
 
   /// Loads and parses the [SharedPreferences] for this app from disk.
   ///
@@ -187,23 +165,5 @@ class CustomSharedPreferencesIOS {
     }
 
     return preferencesMap;
-  }
-
-  /// Initializes the shared preferences with mock values for testing.
-  ///
-  /// If the singleton instance has been initialized already, it is nullified.
-  @visibleForTesting
-  static void setMockInitialValues(Map<String, Object> values) {
-    final newValues = values.map<String, Object>((String key, Object value) {
-      var newKey = key;
-      if (!key.startsWith(_prefix)) {
-        newKey = '$_prefix$key';
-      }
-
-      return MapEntry<String, Object>(newKey, value);
-    });
-    SharedPreferencesStorePlatformIOS.instance =
-        InMemorySharedPreferencesStoreIOS.withData(newValues);
-    _completer = null;
   }
 }

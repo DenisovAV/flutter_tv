@@ -4,8 +4,6 @@
 
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-
 import 'method_channel_shared_preferences_ios.dart';
 
 /// The interface that implementations of shared_preferences must implement.
@@ -24,25 +22,10 @@ abstract class SharedPreferencesStorePlatformIOS {
   /// Platform-specific plugins should set this with their own platform-specific
   /// class that extends [SharedPreferencesStorePlatform] when they register themselves.
   static set instance(SharedPreferencesStorePlatformIOS value) {
-    if (!value.isMock) {
-      try {
-        value._verifyProvidesDefaultImplementations();
-      } on NoSuchMethodError catch (_) {
-        throw AssertionError('Platform interfaces must not be implemented with `implements`');
-      }
-    }
     _instance = value;
   }
 
   static SharedPreferencesStorePlatformIOS _instance = MethodChannelSharedPreferencesStoreIOS();
-
-  /// Only mock implementations should set this to true.
-  ///
-  /// Mockito mocks are implementing this class with `implements` which is forbidden for anything
-  /// other than mocks (see class docs). This property provides a backdoor for mockito mocks to
-  /// skip the verification that the class isn't implemented with `implements`.
-  @visibleForTesting
-  bool get isMock => false;
 
   /// Removes the value associated with the [key].
   Future<bool> remove(String key);
@@ -63,14 +46,6 @@ abstract class SharedPreferencesStorePlatformIOS {
 
   /// Returns all key/value pairs persisted in this store.
   Future<Map<String, Object>> getAll();
-
-  // This method makes sure that SharedPreferencesStorePlatform isn't implemented with `implements`.
-  //
-  // See class doc for more details on why implementing this class is forbidden.
-  //
-  // This private method is called by the instance setter, which fails if the class is
-  // implemented with `implements`.
-  void _verifyProvidesDefaultImplementations() {}
 
   Future<String?> getAppGroup();
 }
