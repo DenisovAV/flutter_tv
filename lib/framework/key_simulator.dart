@@ -9,7 +9,7 @@ Future<bool> simulateKeyEvent(PhysicalKeyboardKey key, {required bool isDown}) a
         .firstWhere((iosKey) => kIosToPhysicalKey[iosKey]!.usbHidUsage == key.usbHidUsage),
   };
   final result = Completer<bool>();
-  await ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
+  await ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
       SystemChannels.keyEvent.name, SystemChannels.keyEvent.codec.encodeMessage(keyMessage),
       (data) {
     if (data == null) {

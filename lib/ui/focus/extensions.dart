@@ -4,8 +4,8 @@ import 'package:flutter_tv/ui/widgets/platform.dart';
 
 const kTvSize = Size(1920, 1080);
 
-final width = WidgetsBinding.instance!.window.physicalSize.width;
-final pixelRatio = WidgetsBinding.instance!.window.devicePixelRatio;
+final width = WidgetsBinding.instance.window.physicalSize.width;
+final pixelRatio = WidgetsBinding.instance.window.devicePixelRatio;
 final isScaled = MyPlatform.isAndroidTV && kTvSize.width * pixelRatio != width;
 
 extension SubmitAction on RawKeyEvent {
