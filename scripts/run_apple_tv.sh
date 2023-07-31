@@ -10,7 +10,7 @@ fvm flutter clean
 
 #build for ios
 fvm flutter pub get
-fvm flutter build ios
+fvm flutter build ios --simulator
 
 #move ios tvos folders
 sh scripts/switch_target.sh tvos
@@ -29,6 +29,6 @@ pod install
 sh ../scripts/copy_framework.sh debug_sim FLUTTER_LOCAL_ENGINE
 
 #add local engine in xcode project
-sed -i '' "s#FLUTTER_LOCAL_ENGINE[[:space:]]=[[:space:]].*;#FLUTTER_LOCAL_ENGINE = \"${FLUTTER_LOCAL_ENGINE}\";#g" Runner.xcodeproj/project.pbxproj
+sed -i "s#FLUTTER_LOCAL_ENGINE[[:space:]]=[[:space:]].*;#FLUTTER_LOCAL_ENGINE = \"${FLUTTER_LOCAL_ENGINE}\";#g" Runner.xcodeproj/project.pbxproj
 
 open Runner.xcworkspace

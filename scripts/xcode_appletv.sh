@@ -19,7 +19,7 @@ BuildAppDebug() {
   fi
 
   ROOTDIR=$(dirname "$PROJECT_DIR")
-  OUTDIR=$ROOTDIR/build/ios/Release-iphoneos
+  OUTDIR=$ROOTDIR/build/ios/Debug-iphonesimulator
   mkdir -p $OUTDIR
 
 
@@ -122,7 +122,7 @@ BuildAppRelease() {
   DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_release/clang_x64
 
   ROOTDIR=$(dirname "$PROJECT_DIR")
-  OUTDIR=$ROOTDIR/build/ios/Release-iphoneos
+  OUTDIR=$ROOTDIR/build/ios/Debug-iphonesimulator
   mkdir -p $OUTDIR
 
   echo " └─Coping Flutter.framework"
