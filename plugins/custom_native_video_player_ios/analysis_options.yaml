@@ -1,0 +1,8 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+linter:
+  rules:
+    sort_pub_dependencies: false
+    public_member_api_docs: false
+    sort_constructors_first: false
+    always_put_required_named_parameters_first: false
