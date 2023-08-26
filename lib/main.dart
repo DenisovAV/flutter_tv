@@ -21,10 +21,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const screen = MoviesScreen();
-    print(MyPlatform.isAndroidTV);
-    print(kTvSize.width);
-    print(width);
-    print(pixelRatio);
     return MaterialApp(
       home: BlocProvider<MoviesBloc>(
           create: (_) => MoviesBloc()..add(MoviesEvent.initializing),

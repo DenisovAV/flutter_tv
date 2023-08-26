@@ -5,14 +5,14 @@ part 'movie.g.dart';
 @JsonSerializable()
 class Movie {
   final String name;
-  final String image;
+  final String id;
   final String synopsis;
   final String meta;
   final String rating;
 
   const Movie({
     required this.name,
-    required this.image,
+    required this.id,
     required this.synopsis,
     required this.meta,
     required this.rating,
@@ -24,14 +24,14 @@ class Movie {
       other is Movie &&
           runtimeType == other.runtimeType &&
           name == other.name &&
-          image == other.image &&
+          id == other.id &&
           synopsis == other.synopsis &&
           meta == other.meta &&
           rating == other.rating;
 
   @override
   int get hashCode =>
-      name.hashCode ^ image.hashCode ^ synopsis.hashCode ^ meta.hashCode ^ rating.hashCode;
+      name.hashCode ^ id.hashCode ^ synopsis.hashCode ^ meta.hashCode ^ rating.hashCode;
 
   @override
   String toString() {

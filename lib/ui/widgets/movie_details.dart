@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tv/domain/movie.dart';
 import 'package:flutter_tv/ui/widgets/platform.dart';
+import 'package:flutter_tv/ui/widgets/video_player.dart';
 
 import '../focus/extensions.dart';
 import '../focus/scale_widget.dart';
@@ -21,7 +22,7 @@ class MovieDetails extends StatelessWidget {
           movie.name,
           style: TextStyle(
             fontSize: MyPlatform.isTv ? 48.0 : 24.0,
-            color: Colors.white,
+            color: MyPlatform.isTv ? Colors.white : Colors.black,
           ),
         ),
       ),
@@ -31,7 +32,7 @@ class MovieDetails extends StatelessWidget {
           movie.meta,
           style: TextStyle(
             fontSize: MyPlatform.isTv ? 32.0 : 16.0,
-            color: Colors.white,
+            color: MyPlatform.isTv ? Colors.white : Colors.black,
           ),
         ),
       ),
@@ -41,7 +42,7 @@ class MovieDetails extends StatelessWidget {
           movie.synopsis,
           style: TextStyle(
             fontSize: MyPlatform.isTv ? 16.0 : 12.0,
-            color: Colors.white,
+            color: MyPlatform.isTv ? Colors.white : Colors.black,
           ),
         ),
       ),
@@ -51,7 +52,29 @@ class MovieDetails extends StatelessWidget {
           'Rating: ${movie.rating}',
           style: TextStyle(
             fontSize: MyPlatform.isTv ? 28.0 : 14.0,
-            color: Colors.white,
+            color: MyPlatform.isTv ? Colors.white : Colors.black,
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.redAccent,
+          ),
+          child: Text(
+            'Trailer',
+            style: TextStyle(
+              fontSize: MyPlatform.isTv ? 28.0 : 14.0,
+              color: Colors.white,
+            ),
+          ),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return PlayerPage(path: 'assets/videos/${movie.id}.mp4');
+              },
+            ),
           ),
         ),
       ),
@@ -74,7 +97,7 @@ class MovieDetails extends StatelessWidget {
               background: Hero(
                 tag: movie.name,
                 child: Image.asset(
-                  'assets/images/${movie.image}.png',
+                  'assets/images/${movie.id}.png',
                   fit: BoxFit.fill,
                 ),
               ),
@@ -101,7 +124,7 @@ class MovieDetails extends StatelessWidget {
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/${movie.image}.png'),
+                      image: AssetImage('assets/images/${movie.id}.png'),
                       fit: BoxFit.fill,
                     ),
                   ),

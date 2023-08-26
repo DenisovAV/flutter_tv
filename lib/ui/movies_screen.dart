@@ -27,20 +27,26 @@ class _MoviesScreenState extends State<MoviesScreen> {
 
   Widget _buildMoviesGrid() {
     return Expanded(
-      child: BlocBuilder<MoviesBloc, MoviesState>(builder: (context, state) {
-        if (state is MoviesLoadedState) {
-          return MovieGrid(
-            movies: state.movies,
-            onTapMovie: (movie) => Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return MovieDetails(movie: movie);
-            })),
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      }),
+      child: BlocBuilder<MoviesBloc, MoviesState>(
+        builder: (context, state) {
+          if (state is MoviesLoadedState) {
+            return MovieGrid(
+              movies: state.movies,
+              onTapMovie: (movie) => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return MovieDetails(movie: movie);
+                  },
+                ),
+              ),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 
