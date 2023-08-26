@@ -58,22 +58,29 @@ class MovieDetails extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.redAccent,
-          ),
-          child: Text(
-            'Trailer',
-            style: TextStyle(
-              fontSize: MyPlatform.isTv ? 28.0 : 14.0,
-              color: Colors.white,
-            ),
-          ),
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return PlayerPage(path: 'assets/videos/${movie.id}.mp4');
-              },
+        child: Center(
+          child: SizedBox(
+            width: 200,
+            child: ElevatedButton(
+              autofocus: true,
+              style: ElevatedButton.styleFrom(
+                elevation: 10.0,
+                backgroundColor: Colors.redAccent,
+              ),
+              child: Text(
+                'Trailer',
+                style: TextStyle(
+                  fontSize: MyPlatform.isTv ? 24.0 : 16.0,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return PlayerPage(path: 'assets/videos/${movie.id}.mp4');
+                  },
+                ),
+              ),
             ),
           ),
         ),
