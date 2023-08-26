@@ -24,6 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^7.0.0
+  custom_native_video_player_ios:
+    path: ./plugins/custom_native_video_player_ios
   custom_shared_preferences_ios:
     path: ./plugins/custom_shared_preferences_ios
 
@@ -35,7 +37,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  json_serializable: ^4.1.0
+  json_serializable: ^6.7.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
