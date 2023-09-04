@@ -47,30 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyByPEr9e108W5VXUFYOrJDJm3HFhmx4b44',
-    appId: '1:39697647783:web:47b57312f5b08d26bb3382',
-    messagingSenderId: '39697647783',
+    apiKey: 'apiKey',
+    appId: 'appId',
+    messagingSenderId: 'messagingSenderId',
     projectId: 'movies-cfc57',
     authDomain: 'movies-cfc57.firebaseapp.com',
     storageBucket: 'movies-cfc57.appspot.com',
-    measurementId: 'G-V77FSDXFCP',
+    measurementId: 'measurementId',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBTGB57evGvA633yDjRPvWJbqRYXggTIGQ',
-    appId: '1:39697647783:android:561c6a5c411cafbcbb3382',
-    messagingSenderId: '39697647783',
+    apiKey: 'apiKey',
+    appId: 'appId',
+    messagingSenderId: 'messagingSenderId',
     projectId: 'movies-cfc57',
     storageBucket: 'movies-cfc57.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCKr4Z1mECRkldIMMhzzDD6aBAA5C__sd8',
-    appId: '1:39697647783:ios:74b0c9a8d31fa2b1bb3382',
-    messagingSenderId: '39697647783',
+    apiKey: 'apiKey',
+    appId: 'appId',
+    messagingSenderId: 'messagingSenderId',
     projectId: 'movies-cfc57',
     storageBucket: 'movies-cfc57.appspot.com',
-    iosClientId: '39697647783-lphd701prmbgbq95kabetif8k5ri7c36.apps.googleusercontent.com',
+    iosClientId: 'iosClientId',
     iosBundleId: 'com.example.flutterTv',
   );
 }
