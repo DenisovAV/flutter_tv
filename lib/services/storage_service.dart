@@ -1,7 +1,7 @@
-import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 abstract class StorageService {
-  Future<String> uploadImage(File file, String id);
+  Future<String> uploadImage(XFile path, String id);
 
-  Future<String> uploadVideo(File file, String id);
+  Future<String> uploadVideo(XFile path, String id);
 }

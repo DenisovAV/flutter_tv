@@ -8,7 +8,7 @@ import 'package:flutter_tv/firebase_options.dart';
 import 'package:flutter_tv/framework/remote_controller.dart';
 import 'package:flutter_tv/ui/focus/extensions.dart';
 import 'package:flutter_tv/ui/focus/scale_widget.dart';
-import 'package:flutter_tv/ui/screens/movies_screen.dart';
+import 'package:flutter_tv/ui/main_screen.dart';
 import 'package:flutter_tv/ui/widgets/platform.dart';
 
 void main() async {
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const screen = MoviesScreen();
+    const screen = MainScreen();
     return MaterialApp(
       home: MultiBlocProvider(
           providers: [

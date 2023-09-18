@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tv/domain/movie.dart';
 import 'package:flutter_tv/services/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddBloc extends Bloc<AddEvent, AddState> {
   AddBloc() : super(AddInitialState());
@@ -43,8 +43,8 @@ abstract class AddEvent {}
 class AddInitializeEvent extends AddEvent {}
 
 class AddUploadEvent extends AddEvent {
-  final File video;
-  final File image;
+  final XFile video;
+  final XFile image;
   final String name;
   final String synopsis;
   final String rating;

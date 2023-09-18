@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^7.0.0
-  video_player: ^2.7.0
+  video_player: ^2.7.1
   shared_preferences: ^2.2.0
   firebase_core: ^2.15.1
 

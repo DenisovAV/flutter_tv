@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tv/business/add_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:video_player/video_player.dart';
-
-import 'dart:io' if (dart.library.html) 'dart:html';
 
 class AddMovieWidget extends StatefulWidget {
   const AddMovieWidget({Key? key}) : super(key: key);
@@ -18,17 +15,36 @@ class _AddMovieWidgetState extends State<AddMovieWidget> {
   TextEditingController synopsisController = TextEditingController();
   TextEditingController metaController = TextEditingController();
   TextEditingController ratingController = TextEditingController();
-  VideoPlayerController? _videoPlayerController;
   XFile? _imageFile;
   XFile? _videoFile;
 
+  bool get _isEnabled =>
+      nameController.text.isNotEmpty &&
+      synopsisController.text.isNotEmpty &&
+      metaController.text.isNotEmpty &&
+      ratingController.text.isNotEmpty &&
+      _videoFile != null &&
+      _imageFile != null;
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.addListener(_textControllerListener);
+    synopsisController.addListener(_textControllerListener);
+    metaController.addListener(_textControllerListener);
+    ratingController.addListener(_textControllerListener);
+  }
+
+  void _textControllerListener() {
+    setState(() {});
+  }
+
   Future<void> _pickVideo() async {
-    _videoFile = await ImagePicker().pickVideo(source: ImageSource.gallery);
-    if (_videoFile != null) {
-      _videoPlayerController = VideoPlayerController.file(File(_videoFile!.path))
-        ..initialize().then((_) {
-          setState(() {});
-        });
+    XFile? pickedFile = await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _videoFile = pickedFile;
+      });
     }
   }
 
@@ -40,20 +56,6 @@ class _AddMovieWidgetState extends State<AddMovieWidget> {
       });
     }
   }
-
-  @override
-  void dispose() {
-    _videoPlayerController?.dispose();
-    super.dispose();
-  }
-
-  bool get _isEnabled =>
-      nameController.text.isNotEmpty &&
-          synopsisController.text.isNotEmpty &&
-          metaController.text.isNotEmpty &&
-          ratingController.text.isNotEmpty &&
-          _videoFile != null &&
-          _imageFile != null;
 
   @override
   Widget build(BuildContext context) {
@@ -89,24 +91,15 @@ class _AddMovieWidgetState extends State<AddMovieWidget> {
                 child: Text('Pick Image'),
               ),
             ]),
-            if (_videoPlayerController != null)
-              AspectRatio(
-                aspectRatio: _videoPlayerController!.value.aspectRatio,
-                child: VideoPlayer(_videoPlayerController!),
-              ),
-            if (_imageFile != null)
-              Image.file(
-                File(_imageFile!.path),
-              ),
             ElevatedButton(
               onPressed: _isEnabled
                   ? () => context.read<AddBloc>().add(AddUploadEvent(
-                  video: File(_videoFile!.path),
-                  image: File(_imageFile!.path),
-                  name: nameController.text,
-                  synopsis: synopsisController.text,
-                  rating: ratingController.text,
-                  meta: metaController.text))
+                      video: _videoFile!,
+                      image: _imageFile!,
+                      name: nameController.text,
+                      synopsis: synopsisController.text,
+                      rating: ratingController.text,
+                      meta: metaController.text))
                   : null,
               child: Text('Submit'),
             ),
@@ -114,5 +107,14 @@ class _AddMovieWidgetState extends State<AddMovieWidget> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    nameController.removeListener(_textControllerListener);
+    synopsisController.removeListener(_textControllerListener);
+    metaController.removeListener(_textControllerListener);
+    ratingController.removeListener(_textControllerListener);
+    super.dispose();
   }
 }
