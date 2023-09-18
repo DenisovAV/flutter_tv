@@ -18,6 +18,8 @@
   "dependencies": {
     "firebase-admin": "^11.5.0",
     "firebase-functions": "^4.2.0",
+    "googleapis": "^126.0.1",
+    "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.4"
   },
   "devDependencies": {

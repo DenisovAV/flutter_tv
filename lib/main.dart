@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tv/business/auth_bloc.dart';
-import 'package:flutter_tv/business/movies_bloc.dart';
 import 'package:flutter_tv/framework/remote_controller.dart';
 import 'package:flutter_tv/ui/focus/extensions.dart';
 import 'package:flutter_tv/ui/focus/scale_widget.dart';
@@ -23,8 +22,7 @@ void main() async {
   );
   FirebaseUIAuth.configureProviders(
     [
-      GoogleProvider(
-          clientId: '39697647783-sg98roqblt4bmg026ahmo1d0egfujque.apps.googleusercontent.com'),
+      GoogleProvider(clientId: DefaultFirebaseOptions.webClientId),
     ],
   );
 
@@ -40,9 +38,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: MultiBlocProvider(
           providers: [
-            BlocProvider<MoviesBloc>(
-              create: (_) => MoviesBloc()..add(MoviesInitializeEvent()),
-            ),
             BlocProvider<AuthBloc>(
               create: (_) => AuthBloc()..add(AuthInitializeEvent()),
             ),

@@ -3,38 +3,38 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
-class User {
-  final String id;
+class MoviesUser {
   final String name;
-  final String image;
+  final String avatarURL;
+  final bool admin;
 
-  const User({
-    required this.id,
+  const MoviesUser({
     required this.name,
-    required this.image,
+    required this.avatarURL,
+    required this.admin,
   });
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is User &&
+      other is MoviesUser &&
           runtimeType == other.runtimeType &&
           name == other.name &&
-          id == other.id &&
-          image == other.image;
+          admin == other.admin &&
+          avatarURL == other.avatarURL;
 
   @override
   int get hashCode =>
       name.hashCode ^
-      id.hashCode ^
-      image.hashCode;
+      admin.hashCode ^
+      avatarURL.hashCode;
 
   @override
   String toString() {
-    return 'User{name: $name}';
+    return 'User{name: $name, admin: $admin}';
   }
 
-  factory User.fromJson(Map<String, dynamic> data) => _$UserFromJson(data);
+  factory MoviesUser.fromJson(Map<String, dynamic> data) => _$UserFromJson(data);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 

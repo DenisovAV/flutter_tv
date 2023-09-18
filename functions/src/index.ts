@@ -16,6 +16,5 @@ exports.onAuthUserCreate = functions.auth.user().onCreate(async (user) => {
     avatarURL: user.photoURL,
     admin: false,
   });
-
 });
 

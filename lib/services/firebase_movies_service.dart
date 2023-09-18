@@ -8,4 +8,16 @@ class FirebaseMoviesService implements MoviesService {
       .collection('movies')
       .snapshots()
       .map((snapshot) => snapshot.docs.map((doc) => Movie.fromJson(doc.data())).toList());
+
+  Future<void> addMovie(Movie movie) async {
+    try {
+      await FirebaseFirestore.instance.collection('movies').add(
+        movie.toJson(),
+      );
+    } catch (e) {
+      print("Error: $e");
+      return null;
+    }
+  }
+
 }

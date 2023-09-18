@@ -1,6 +1,9 @@
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tv/business/movies_bloc.dart';
+import 'package:flutter_tv/business/user_bloc.dart';
+import 'package:flutter_tv/ui/screens/add_screen.dart';
 import 'package:flutter_tv/ui/widgets/movie_details.dart';
 import 'package:flutter_tv/ui/widgets/movie_grid.dart';
 import 'package:flutter_tv/ui/widgets/platform.dart';
@@ -14,13 +17,43 @@ class MoviesScreen extends StatefulWidget {
 
 class _MoviesScreenState extends State<MoviesScreen> {
   Widget _buildTitle() {
-    return const Center(
-      child: Text(
-        'Movies',
-        style: TextStyle(
-          fontSize: 50,
-          fontWeight: FontWeight.bold,
-        ),
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, state) => Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Expanded(
+            child: Center(
+              child: Text(
+                'Movies',
+                style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          if (state is UserLoadedState && state.user.admin)
+            IconButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return AddScreen();
+                  },
+                ),
+              ),
+              icon: Icon(Icons.add_circle),
+            ),
+          IconButton(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return ProfileScreen();
+                },
+              ),
+            ),
+            icon: Icon(Icons.account_circle),
+          ),
+        ],
       ),
     );
   }
@@ -60,8 +93,18 @@ class _MoviesScreenState extends State<MoviesScreen> {
         _buildMoviesGrid(),
       ],
     );
-    return Scaffold(
-      body: MyPlatform.isTv ? moviesScreen : SafeArea(child: moviesScreen),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MoviesBloc>(
+          create: (_) => MoviesBloc()..add(MoviesInitializeEvent()),
+        ),
+        BlocProvider<UserBloc>(
+          create: (_) => UserBloc()..add(UserInitializeEvent()),
+        ),
+      ],
+      child: Scaffold(
+        body: MyPlatform.isTv ? moviesScreen : SafeArea(child: moviesScreen),
+      ),
     );
   }
 }
