@@ -4,6 +4,7 @@ import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tv/business/auth_bloc.dart';
+import 'package:flutter_tv/business/user_bloc.dart';
 import 'package:flutter_tv/firebase_options.dart';
 import 'package:flutter_tv/framework/remote_controller.dart';
 import 'package:flutter_tv/ui/focus/extensions.dart';
@@ -34,14 +35,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const screen = MainScreen();
-    return MaterialApp(
-      home: MultiBlocProvider(
-          providers: [
-            BlocProvider<AuthBloc>(
-              create: (_) => AuthBloc()..add(AuthInitializeEvent()),
-            ),
-          ],
-          child: isScaled
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (_) => AuthBloc()..add(AuthInitializeEvent()),
+        ),
+        BlocProvider<UserBloc>(
+          create: (_) => UserBloc()..add(UserInitializeEvent()),
+        ),
+      ],
+      child: MaterialApp(
+          home: isScaled
               ? ScaleWidget(
                   child: screen,
                 )

@@ -13,8 +13,9 @@ class UserProfileWidget extends StatelessWidget {
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 50),
+          SizedBox(height: 20),
           CircleAvatar(
             radius: 50,
             backgroundImage: NetworkImage(user.avatarURL),

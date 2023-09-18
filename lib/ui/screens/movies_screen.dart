@@ -1,9 +1,9 @@
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tv/business/movies_bloc.dart';
 import 'package:flutter_tv/business/user_bloc.dart';
 import 'package:flutter_tv/ui/screens/add_screen.dart';
+import 'package:flutter_tv/ui/screens/user_screen.dart';
 import 'package:flutter_tv/ui/widgets/movie_details.dart';
 import 'package:flutter_tv/ui/widgets/movie_grid.dart';
 import 'package:flutter_tv/ui/widgets/platform.dart';
@@ -16,6 +16,14 @@ class MoviesScreen extends StatefulWidget {
 }
 
 class _MoviesScreenState extends State<MoviesScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserBloc>().add(UserRefresheEvent());
+  }
+
+
   Widget _buildTitle() {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) => Row(
@@ -47,7 +55,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return ProfileScreen();
+                  return UserScreen();
                 },
               ),
             ),
@@ -97,9 +105,6 @@ class _MoviesScreenState extends State<MoviesScreen> {
       providers: [
         BlocProvider<MoviesBloc>(
           create: (_) => MoviesBloc()..add(MoviesInitializeEvent()),
-        ),
-        BlocProvider<UserBloc>(
-          create: (_) => UserBloc()..add(UserInitializeEvent()),
         ),
       ],
       child: Scaffold(

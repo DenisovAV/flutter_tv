@@ -10,7 +10,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   @override
   Stream<UserState> mapEventToState(UserEvent event) async* {
     switch (event) {
-      case (UserInitializeEvent _):
+      case (UserRefresheEvent _):
         final user = await getUserService().getUser();
         if (user != null) {
           yield UserLoadedState(user: user);
@@ -22,6 +22,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 abstract class UserEvent {}
 
 class UserInitializeEvent extends UserEvent {}
+
+class UserRefresheEvent extends UserEvent {}
 
 abstract class UserState {}
 
