@@ -17,13 +17,6 @@ class MoviesScreen extends StatefulWidget {
 
 class _MoviesScreenState extends State<MoviesScreen> {
 
-  @override
-  void initState() {
-    super.initState();
-    context.read<UserBloc>().add(UserRefresheEvent());
-  }
-
-
   Widget _buildTitle() {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) => Row(

@@ -7,15 +7,28 @@ import 'package:flutter_tv/services/services.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserInitialState());
 
+  StreamSubscription<MoviesUser?>? _userSubscription;
+
   @override
   Stream<UserState> mapEventToState(UserEvent event) async* {
     switch (event) {
-      case (UserRefresheEvent _):
-        final user = await getUserService().getUser();
-        if (user != null) {
-          yield UserLoadedState(user: user);
-        }
+      case (UserInitializeEvent _):
+        _userSubscription = getUserService().getUser().listen(
+          (user) {
+            if (user != null) {
+              add(UserRefreshEvent(user: user));
+            }
+          },
+        );
+      case (UserRefreshEvent event):
+        yield UserLoadedState(user: event.user);
     }
+  }
+
+  @override
+  Future<void> close() {
+    _userSubscription?.cancel();
+    return super.close();
   }
 }
 
@@ -23,7 +36,11 @@ abstract class UserEvent {}
 
 class UserInitializeEvent extends UserEvent {}
 
-class UserRefresheEvent extends UserEvent {}
+class UserRefreshEvent extends UserEvent {
+  final MoviesUser user;
+
+  UserRefreshEvent({required this.user});
+}
 
 abstract class UserState {}
 

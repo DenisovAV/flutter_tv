@@ -5,9 +5,12 @@ import 'package:flutter_tv/services/user_service.dart';
 
 class FirebaseUserService implements UserService {
   @override
-  Future<MoviesUser?> getUser() async {
-    final id = FirebaseAuth.instance.currentUser?.uid;
-    var document = await FirebaseFirestore.instance.collection('users').doc(id).get();
-    return document.exists ? MoviesUser.fromJson(document.data()!) : null;
-  }
+  Stream<MoviesUser?> getUser() => FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .snapshots()
+          .map((doc) {
+        final data = doc.data();
+        return data != null ? MoviesUser.fromJson(data) : null;
+      });
 }
