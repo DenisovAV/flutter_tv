@@ -22,7 +22,8 @@
     "firebase-functions": "^4.2.0",
     "googleapis": "^126.0.1",
     "node-fetch": "^3.3.2",
-    "nodemailer": "^6.9.4"
+    "nodemailer": "^6.9.4",
+    "sharp": "^0.32.6"
   },
   "devDependencies": {
     "@types/nodemailer": "^6.4.9",

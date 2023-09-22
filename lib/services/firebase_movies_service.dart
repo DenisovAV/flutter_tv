@@ -11,13 +11,12 @@ class FirebaseMoviesService implements MoviesService {
 
   Future<void> addMovie(Movie movie) async {
     try {
-      await FirebaseFirestore.instance.collection('movies').add(
-        movie.toJson(),
-      );
+      await FirebaseFirestore.instance.collection('movies').doc(movie.id).set(
+            movie.toJson(),
+          );
     } catch (e) {
       print("Error: $e");
       return null;
     }
   }
-
 }

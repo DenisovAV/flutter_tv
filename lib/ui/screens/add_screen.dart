@@ -27,7 +27,9 @@ class _AddScreenState extends State<AddScreen> {
               );
             } else if (state is AddUploadedState) {
               if (state.success) {
-                Navigator.of(context).pop();
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pop(context);
+                });
               } else {
                 return const Center(
                   child: Text('Movie added failed'),

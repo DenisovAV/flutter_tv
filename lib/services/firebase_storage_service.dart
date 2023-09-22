@@ -6,11 +6,11 @@ import 'package:image_picker/image_picker.dart';
 
 class FirebaseStorageService implements StorageService {
   Future<String> uploadImage(XFile file, String id) async {
-    return _uploadResource(file, 'images/$id.png');
+    return _uploadResource(file, id);
   }
 
   Future<String> uploadVideo(XFile file, String id) async {
-    return _uploadResource(file, 'videos/$id.mp4');
+    return _uploadResource(file, id);
   }
 
   Future<String> _uploadResource(XFile file, String path) async {
