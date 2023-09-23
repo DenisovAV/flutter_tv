@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tv/business/auth_bloc.dart';
@@ -31,5 +32,24 @@ class _MainScreenState extends State<MainScreen> {
         child: CircularProgressIndicator(),
       );
     });
+  }
+
+  @override
+  void initState()  {
+    super.initState();
+    _initializeMessaging();
+  }
+
+  Future<void> _initializeMessaging() async {
+    final messaging = FirebaseMessaging.instance;
+    await messaging.getToken(
+      vapidKey: "WEB_PUSH_VAPID_KEY",
+    );
+    await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    await messaging.subscribeToTopic('movies');
   }
 }

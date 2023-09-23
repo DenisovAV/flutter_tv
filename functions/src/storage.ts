@@ -1,12 +1,6 @@
 import * as functions from "firebase-functions/v2";
-import * as logger from "firebase-functions/logger";
-import * as path from "path";
 import * as sharp from "sharp";
 import * as admin from "firebase-admin";
-
-functions.setGlobalOptions({
-  region: "europe-west1",
-});
 
 export const compressMedia =
   exports.compressMedia = functions.storage.onObjectFinalized({cpu: 2}, async (event) => {
@@ -16,7 +10,7 @@ export const compressMedia =
 
     // Exit if this is triggered on a file that is not an image.
     if (!contentType.startsWith("image/")) {
-      return logger.log("This is not an uploaded image.");
+      return console.error("This is not an uploaded image.");
     }
 
     // Download file into memory from bucket.
@@ -42,5 +36,5 @@ export const compressMedia =
       metadata: metadata,
     });
 
-    return logger.log("Image uploaded!");
+    return console.error("Image uploaded!");
   });
