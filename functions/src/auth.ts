@@ -3,8 +3,6 @@ import * as admin from "firebase-admin";
 import axios from "axios";
 import {randomUUID} from "crypto";
 
-admin.initializeApp();
-
 export const createUser =
   exports.createUser = functions.region("europe-west1").auth.user().onCreate(async (user) => {
     const uuid = randomUUID();

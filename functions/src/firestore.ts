@@ -1,6 +1,10 @@
 import * as functions from "firebase-functions/v2";
 import * as admin from "firebase-admin";
 
+functions.setGlobalOptions({
+  region: "europe-west1",
+});
+
 export const sendPushNotification = functions.firestore.onDocumentCreated("movies/{id}",
   async (event) => {
     const movie = event.data;

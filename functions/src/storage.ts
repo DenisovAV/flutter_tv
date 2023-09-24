@@ -2,7 +2,11 @@ import * as functions from "firebase-functions/v2";
 import * as sharp from "sharp";
 import * as admin from "firebase-admin";
 
-export const compressMedia =
+functions.setGlobalOptions({
+  region: "europe-west1",
+});
+
+export const compressImage =
   exports.compressMedia = functions.storage.onObjectFinalized({cpu: 2}, async (event) => {
     const fileBucket = event.data.bucket; // Storage bucket containing the file.
     const filePath = event.data.name; // File path in the bucket.
@@ -36,5 +40,5 @@ export const compressMedia =
       metadata: metadata,
     });
 
-    return console.error("Image uploaded!");
+    return console.log("Image uploaded!");
   });
