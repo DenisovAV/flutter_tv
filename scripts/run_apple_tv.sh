@@ -37,7 +37,7 @@ fvm flutter pub get
 
 pod install
 
-sh ../scripts/copy_framework.sh $ENGINE_TYPE FLUTTER_LOCAL_ENGINE
+sh ../scripts/copy_framework.sh $ENGINE_TYPE $FLUTTER_LOCAL_ENGINE
 
 #add local engine in xcode project
 sed -i "" "s#FLUTTER_LOCAL_ENGINE[[:space:]]=[[:space:]].*;#FLUTTER_LOCAL_ENGINE = \"${FLUTTER_LOCAL_ENGINE}\";#g" Runner.xcodeproj/project.pbxproj

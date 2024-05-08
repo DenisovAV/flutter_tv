@@ -7,7 +7,12 @@
 # Exit on error
 set -e
 
-FLUTTER_LOCAL_ENGINE=/Users/Aleksandr_Denisov/Work/engine/src
+if [ "$2" == "" ]; then
+	echo "Error: FLUTTER_LOCAL_ENGINE is not specified"
+	break
+fi
+
+FLUTTER_LOCAL_ENGINE=$2
 
 if [ "$1" == "release" ]; then
 	echo "Coping Flutter.framework (release)..."
