@@ -167,7 +167,7 @@ BuildAppRelease() {
     "$HOST_TOOLS/gen/frontend_server.dart.snapshot" \
     --sdk-root "$HOST_TOOLS/flutter_patched_sdk" \
     --aot --tfa --target=flutter \
-    -DTARGET_PLATFORM=TVOS \
+    -DTV_MODE=ON \
     --output-dill "$OUTDIR/app.dill" \
     "$FLUTTER_APPLICATION_PATH/lib/main.dart"
 
