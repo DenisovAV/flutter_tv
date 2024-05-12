@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tv/domain/movie.dart';
 import 'package:flutter_tv/ui/focus/extensions.dart';
 import 'package:flutter_tv/ui/widgets/movie_card/mobile_movie_card.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:custom_shared_preferences_ios/custom_shared_preferences_ios.dart';
 
 class TvMovieCard extends StatefulWidget {
   final int index;
@@ -60,7 +60,7 @@ class _TvMovieCardState extends State<TvMovieCard> {
   }
 
   Future<void> _incrementCounter() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final CustomSharedPreferencesIOS prefs = await CustomSharedPreferencesIOS.getInstance();
     final int counter = (prefs.getInt('counter') ?? 0) + 1;
     print('The current value of counter is $counter');
     prefs.setInt('counter', counter);

@@ -6,10 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.2'
-        // START: FlutterFire Configuration
-        classpath 'com.google.gms:google-services:4.3.10'
-        // END: FlutterFire Configuration
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -29,6 +26,6 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
-tasks.register("clean", Delete) {
+task clean(type: Delete) {
     delete rootProject.buildDir
 }

@@ -1,6 +1,6 @@
+import 'package:custom_native_video_player_ios/native_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tv/ui/widgets/platform.dart';
-import 'package:video_player/video_player.dart';
 
 class PlayerPage extends StatefulWidget {
   const PlayerPage({Key? key, required this.path}) : super(key: key);
@@ -12,49 +12,28 @@ class PlayerPage extends StatefulWidget {
 }
 
 class _PlayerPageState extends State<PlayerPage> {
-  late VideoPlayerController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    print(widget.path);
-    _controller = VideoPlayerController.networkUrl(
-      Uri.parse(widget.path),
-      videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
-    );
-
-    _controller.addListener(() {
-      setState(() {});
-    });
-    _controller.setLooping(true);
-    _controller.initialize().then((_) => setState(() {}));
-    _controller.play();
-  }
+  NativeVideoPlayerView? player;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: SizedBox(
           height: MyPlatform.isTv || MediaQuery.of(context).orientation == Orientation.landscape
               ? double.infinity
               : MediaQuery.of(context).size.height / 3,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: <Widget>[
-              VideoPlayer(_controller),
-              VideoProgressIndicator(_controller, allowScrubbing: true),
-            ],
+          child: NativeVideoPlayerView(
+            onViewReady: (controller) async {
+              final videoSource = await VideoSource.init(
+                type: VideoSourceType.asset,
+                path: widget.path,
+              );
+              await controller.loadVideoSource(videoSource);
+              await controller.play();
+            },
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }

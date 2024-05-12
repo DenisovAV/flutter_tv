@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tv/domain/movie.dart';
-import 'package:flutter_tv/ui/focus/extensions.dart';
-import 'package:flutter_tv/ui/focus/scale_widget.dart';
 import 'package:flutter_tv/ui/widgets/platform.dart';
 import 'package:flutter_tv/ui/widgets/video_player.dart';
 
+import '../focus/extensions.dart';
+import '../focus/scale_widget.dart';
 
 class MovieDetails extends StatelessWidget {
   const MovieDetails({required this.movie, Key? key}) : super(key: key);
@@ -77,7 +77,7 @@ class MovieDetails extends StatelessWidget {
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return PlayerPage(path: movie.trailer);
+                    return PlayerPage(path: 'assets/videos/${movie.id}.mp4');
                   },
                 ),
               ),
@@ -103,8 +103,8 @@ class MovieDetails extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               background: Hero(
                 tag: movie.name,
-                child: Image.network(
-                  movie.image,
+                child: Image.asset(
+                  'assets/images/${movie.id}.png',
                   fit: BoxFit.fill,
                 ),
               ),
