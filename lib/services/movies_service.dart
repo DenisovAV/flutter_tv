@@ -1,5 +1,6 @@
 import 'package:flutter_tv/domain/movie.dart';
 
 abstract class MoviesService {
-  Future<List<Movie>> getMovies();
+  Stream<List<Movie>> getMovies();
+  Future<void> addMovie(Movie movie);
 }
