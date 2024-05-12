@@ -11,9 +11,19 @@ debug_sim=""
 
 BuildAppDebug() {
 
-  HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_debug_unopt 
+  if [[ "$cpu_arch" == "arm64" ]]; then
+    HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_debug_unopt_arm64
+  else  
+    HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_debug_unopt 
+  fi
+
+
   if [[ "$debug_sim" == "true" ]]; then
-    DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_debug_sim_unopt/clang_x64
+    if [[ "$cpu_arch" == "arm64" ]]; then
+      DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_debug_sim_unopt_arm64/clang_x64
+    else  
+      DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_debug_sim_unopt/clang_x64
+    fi
   else
     DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_debug_unopt/clang_x64
   fi
@@ -72,7 +82,21 @@ BuildAppDebug() {
 
 
   if [[ "$debug_sim" == "true" ]]; then
-    echo "static const int Moo = 88;" | xcrun clang -x c \
+    if [[ "$cpu_arch" == "arm64" ]]; then
+       echo "static const int Moo = 88;" | xcrun clang -x c \
+      -arch arm64 \
+      -L"$SYSROOT/usr/lib" \
+      -lSystem \
+      -fembed-bitcode-marker \
+      -isysroot "$SYSROOT" \
+      -mappletvsimulator-version-min=$tvos_deployment_target \
+      -dynamiclib \
+      -Xlinker -rpath -Xlinker '@executable_path/Frameworks' \
+      -Xlinker -rpath -Xlinker '@loader_path/Frameworks' \
+      -install_name '@rpath/App.framework/App' \
+      -o "$OUTDIR/App.framework/App" -
+    else  
+       echo "static const int Moo = 88;" | xcrun clang -x c \
       -arch x86_64 \
       -L"$SYSROOT/usr/lib" \
       -lSystem \
@@ -84,6 +108,8 @@ BuildAppDebug() {
       -Xlinker -rpath -Xlinker '@loader_path/Frameworks' \
       -install_name '@rpath/App.framework/App' \
       -o "$OUTDIR/App.framework/App" -
+    fi
+   
 
   else    
     echo "static const int Moo = 88;" | xcrun clang -x c \
@@ -141,7 +167,7 @@ BuildAppRelease() {
     "$HOST_TOOLS/gen/frontend_server.dart.snapshot" \
     --sdk-root "$HOST_TOOLS/flutter_patched_sdk" \
     --aot --tfa --target=flutter \
-    -DTARGET_PLATFORM=TVOS \
+    -DTV_MODE=ON \
     --output-dill "$OUTDIR/app.dill" \
     "$FLUTTER_APPLICATION_PATH/lib/main.dart"
 
@@ -198,8 +224,10 @@ BuildAppRelease() {
 BuildApp() {
   
   local build_mode="$(echo "${FLUTTER_BUILD_MODE:-${CONFIGURATION}}" | tr "[:upper:]" "[:lower:]")"
+
+  local cpu_arch="$(uname -m)"
   
-  echo "Compling /Flutter/App.Framework"
+  echo "Compling /Flutter/App.Framework $cpu_arch"
  
   if [ -z "$FLUTTER_LOCAL_ENGINE" ]; then
     echo " └─ERROR: FLUTTER_LOCAL_ENGINE not set!" 
