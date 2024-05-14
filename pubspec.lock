@@ -381,8 +381,8 @@ packages:
     description:
       path: "packages/shared_preferences/shared_preferences_foundation"
       ref: HEAD
-      resolved-ref: "58f0cd17f93c01814d0a56a943a663de7c43ae17"
-      url: "https://github.com/DenisovAV/flutter-tvos-packages"
+      resolved-ref: "6166fd880015ebc0bc5489a38f63dc3492fff1c9"
+      url: "https://github.com/DenisovAV/flutter-tvos-packages.git"
     source: git
     version: "2.4.0"
   shared_preferences_linux:
@@ -398,8 +398,8 @@ packages:
     description:
       path: "packages/shared_preferences/shared_preferences_platform_interface"
       ref: HEAD
-      resolved-ref: "58f0cd17f93c01814d0a56a943a663de7c43ae17"
-      url: "https://github.com/DenisovAV/flutter-tvos-packages"
+      resolved-ref: "6166fd880015ebc0bc5489a38f63dc3492fff1c9"
+      url: "https://github.com/DenisovAV/flutter-tvos-packages.git"
     source: git
     version: "2.3.2"
   shared_preferences_web:
@@ -524,8 +524,8 @@ packages:
     description:
       path: "packages/video_player/video_player_avfoundation"
       ref: HEAD
-      resolved-ref: "58f0cd17f93c01814d0a56a943a663de7c43ae17"
-      url: "https://github.com/DenisovAV/flutter-tvos-packages"
+      resolved-ref: "6166fd880015ebc0bc5489a38f63dc3492fff1c9"
+      url: "https://github.com/DenisovAV/flutter-tvos-packages.git"
     source: git
     version: "2.6.1"
   video_player_platform_interface:
@@ -533,8 +533,8 @@ packages:
     description:
       path: "packages/video_player/video_player_platform_interface"
       ref: HEAD
-      resolved-ref: "830a1dcadf9d311fe44f6bdc831881dd6474a9ec"
-      url: "https://github.com/DenisovAV/flutter-tvos-packages"
+      resolved-ref: "6166fd880015ebc0bc5489a38f63dc3492fff1c9"
+      url: "https://github.com/DenisovAV/flutter-tvos-packages.git"
     source: git
     version: "6.2.2"
   video_player_web:
