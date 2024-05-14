@@ -30,19 +30,19 @@ dependencies:
 dependency_overrides:
   video_player_avfoundation:
     git:
-      url: https://github.com/DenisovAV/flutter-tvos-packages
+      url: https://github.com/DenisovAV/flutter-tvos-packages.git
       path: packages/video_player/video_player_avfoundation
   shared_preferences_foundation:
     git:
-      url: https://github.com/DenisovAV/flutter-tvos-packages
+      url: https://github.com/DenisovAV/flutter-tvos-packages.git
       path: packages/shared_preferences/shared_preferences_foundation
   video_player_platform_interface:
     git:
-      url: https://github.com/DenisovAV/flutter-tvos-packages
+      url: https://github.com/DenisovAV/flutter-tvos-packages.git
       path: packages/video_player/video_player_platform_interface
   shared_preferences_platform_interface:
     git:
-      url: https://github.com/DenisovAV/flutter-tvos-packages
+      url: https://github.com/DenisovAV/flutter-tvos-packages.git
       path: packages/shared_preferences/shared_preferences_platform_interface
 
   # The following adds the Cupertino Icons font to your application.
