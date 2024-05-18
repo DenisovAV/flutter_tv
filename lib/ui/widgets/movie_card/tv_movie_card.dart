@@ -31,7 +31,7 @@ class _TvMovieCardState extends State<TvMovieCard> {
       onFocusChange: (value) => setState(() {
         _isFocused = value;
       }),
-      onKey: (_, event) {
+      onKeyEvent: (_, event) {
         if (widget.onTap != null && event.hasSubmitIntent) {
           widget.onTap!();
           _incrementCounter();

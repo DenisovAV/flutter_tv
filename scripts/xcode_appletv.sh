@@ -44,6 +44,8 @@ BuildAppDebug() {
 #  mkdir -p "$OUTDIR/App.framework/flutter_assets"
 #  cp -v -R "$PROJECT_DIR/tvos_flutter_assets/flutter_assets" "$OUTDIR/App.framework"
 
+  engine_dart_version=$(cat $HOST_TOOLS/dart-sdk/version)
+  echo " └─Engine dart version $engine_dart_version"
 
   echo " └─Compiling kernal"
 
@@ -160,6 +162,9 @@ BuildAppRelease() {
 #  echo " └─Copy resourcse (images & fonts)"
 #  mkdir -p "$OUTDIR/App.framework/flutter_assets"
 #  cp -R "$PROJECT_DIR/tvos_flutter_assets/flutter_assets" "$OUTDIR/App.framework"
+
+  engine_dart_version=$(cat $HOST_TOOLS/dart-sdk/version)
+  echo " └─Engine dart version $engine_dart_version"
 
   echo " └─Compiling kernal"
 
