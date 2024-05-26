@@ -22,7 +22,7 @@ void main() async {
   );
   FirebaseUIAuth.configureProviders(
     [
-      GoogleProvider(clientId: DefaultFirebaseOptions.webClientId),
+      GoogleProvider(clientId: String.fromEnvironment('WEB_CLIENT_ID')),
     ],
   );
 
