@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tv/business/gemini_bloc.dart';
 import 'package:flutter_tv/domain/movie.dart';
 import 'package:flutter_tv/ui/focus/extensions.dart';
 import 'package:flutter_tv/ui/focus/scale_widget.dart';
+import 'package:flutter_tv/ui/widgets/ai_chat/gemini_message_overlay.dart';
 import 'package:flutter_tv/ui/widgets/platform.dart';
 import 'package:flutter_tv/ui/widgets/video_player.dart';
-
 
 class MovieDetails extends StatelessWidget {
   const MovieDetails({required this.movie, Key? key}) : super(key: key);
@@ -88,34 +90,53 @@ class MovieDetails extends StatelessWidget {
     ];
 
     return Material(
-      child: MyPlatform.isTv ? getTvDetails(widgets) : getDetails(widgets),
+      child: MyPlatform.isTv ? getTvDetails(widgets) : getDetails(widgets, context),
     );
   }
 
-  Widget getDetails(List<Widget> widgets) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            backgroundColor: Colors.white,
-            expandedHeight: 200.0,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Hero(
-                tag: movie.name,
-                child: Image.network(
-                  movie.image,
-                  fit: BoxFit.fill,
+  Widget getDetails(List<Widget> widgets, BuildContext context) {
+    return BlocBuilder<GeminiBloc, GeminiState>(builder: (context, state) {
+      return Scaffold(
+        body: Stack(children: [
+          CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: Colors.white,
+                expandedHeight: 200.0,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Hero(
+                    tag: movie.name,
+                    child: Image.network(
+                      movie.image,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                 ),
               ),
+              SliverList(
+                delegate: SliverChildListDelegate(widgets),
+              ),
+            ],
+          ),
+          if (state is! GeminiInitialState)
+            GeminiMessageOverlay(
+              token: state is GeminiProvidedInfoState ? state.token : '_',
             ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(widgets),
-          ),
-        ],
-      ),
-    );
+        ]),
+        floatingActionButton: state is GeminiInitialState
+            ? FloatingActionButton(
+                child: Image.asset(
+                  'assets/gemini.png',
+                  height: 40,
+                  width: 40,
+                ),
+                onPressed: () =>
+                    context.read<GeminiBloc>().add(GeminiRequestInfoEvent(movie: movie)),
+              )
+            : null,
+      );
+    });
   }
 
   Widget getTvDetails(List<Widget> widgets) {

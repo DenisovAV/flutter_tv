@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tv/business/gemini_bloc.dart';
 import 'package:flutter_tv/business/movies_bloc.dart';
 import 'package:flutter_tv/business/user_bloc.dart';
 import 'package:flutter_tv/ui/screens/add_screen.dart';
@@ -16,7 +17,6 @@ class MoviesScreen extends StatefulWidget {
 }
 
 class _MoviesScreenState extends State<MoviesScreen> {
-
   Widget _buildTitle() {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) => Row(
@@ -69,7 +69,10 @@ class _MoviesScreenState extends State<MoviesScreen> {
               onTapMovie: (movie) => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return MovieDetails(movie: movie);
+                    return BlocProvider<GeminiBloc>(
+                      create: (_) => GeminiBloc(),
+                      child: MovieDetails(movie: movie),
+                    );
                   },
                 ),
               ),
