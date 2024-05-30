@@ -17,7 +17,7 @@ class GeminiBloc extends Bloc<GeminiEvent, GeminiState> {
       case (GeminiRequestInfoEvent request):
         yield GeminiRequestInfoState();
         _geminiSubscription = getGeminiService()
-            .getDescription('Tell me what do you know about movie ${request.movie.name}')
+            .getDescription('Tell me about ${request.movie.meta} ${request.movie.name}, about director, actors, and story itself')
             .listen(
           (token) {
             add(_GeminiProvideInfoEvent(token: token));

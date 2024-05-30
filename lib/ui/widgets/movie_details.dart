@@ -126,6 +126,7 @@ class MovieDetails extends StatelessWidget {
         ]),
         floatingActionButton: state is GeminiInitialState
             ? FloatingActionButton(
+                backgroundColor: Colors.black,
                 child: Image.asset(
                   'assets/gemini.png',
                   height: 40,

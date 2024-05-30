@@ -9,35 +9,47 @@ class ChatMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const SizedBox(
-            width: 10,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            padding: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              color: const Color(0xFF757575),
-              borderRadius: BorderRadius.circular(8.0),
+        color: Colors.black,
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(
+              width: 10,
             ),
-            child: message.isNotEmpty
-                ? MarkdownBody(
-                    data: message,
-                  )
-                : const Center(child: CircularProgressIndicator()),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          CircleAvatar(
-            backgroundColor: Colors.transparent,
-            foregroundImage: AssetImage('assets/gemini.png'),
-          ),
-        ],
-      ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: message.isNotEmpty
+                  ? MarkdownBody(
+                      styleSheet: MarkdownStyleSheet(
+                        h1: TextStyle(color: Colors.white),
+                        h2: TextStyle(color: Colors.white),
+                        h3: TextStyle(color: Colors.white),
+                        p: TextStyle(color: Colors.white),
+                        strong: TextStyle(color: Colors.white),
+                        em: TextStyle(color: Colors.white),
+                        listBullet: TextStyle(color: Colors.white),
+                        blockquote: TextStyle(color: Colors.white),
+                        code: TextStyle(color: Colors.white),
+                      ),
+                      data: message,
+                    )
+                  : const Center(child: CircularProgressIndicator()),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            CircleAvatar(
+              backgroundColor: Colors.black,
+              foregroundImage: AssetImage('assets/gemini.png'),
+            ),
+          ],
+        ),
     );
   }
 }

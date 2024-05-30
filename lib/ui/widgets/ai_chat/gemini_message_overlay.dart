@@ -21,7 +21,7 @@ class GeminiMessageOverlayState extends State<GeminiMessageOverlay> {
 
   @override
   void didUpdateWidget(GeminiMessageOverlay oldWidget) {
-    if (widget.token != null) {
+    if (widget.token != null && widget.token!.isNotEmpty) {
       _message = '$_message${widget.token}';
     } else {
       _done = true;
@@ -33,12 +33,28 @@ class GeminiMessageOverlayState extends State<GeminiMessageOverlay> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        ChatMessageWidget(message: _message),
         if (_done)
           ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.pressed)) {
+                    return Colors.black.withOpacity(0.8);
+                  }
+                  return Colors.black;
+                },
+              ),
+              foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                  return Colors.white;
+                },
+              ),
+            ),
             onPressed: () => context.read<GeminiBloc>().add(GeminiRefreshEvent()),
             child: Text('Done'),
           ),
+        ChatMessageWidget(message: _message),
+
       ],
       reverse: true,
     );

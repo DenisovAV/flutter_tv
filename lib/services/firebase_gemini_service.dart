@@ -9,7 +9,6 @@ class FirebaseGeminiService implements GeminiService {
   final config = GenerationConfig(
     maxOutputTokens: 1024,
     temperature: 1,
-
   );
 
   @override
