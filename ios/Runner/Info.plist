@@ -59,7 +59,7 @@
     		<string>Editor</string>
     		<key>CFBundleURLSchemes</key>
    			<array>
-   			   <string>WEB-ClIENT-ID/string>
+   			   <string>WEB-ClIENT-ID</string>
  		   </array>
  		</dict>
 	</array>
