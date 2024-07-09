@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tv/business/movies_bloc.dart';
@@ -7,11 +8,13 @@ import 'package:flutter_tv/ui/focus/scale_widget.dart';
 import 'package:flutter_tv/ui/movies_screen.dart';
 import 'package:flutter_tv/ui/widgets/platform.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (MyPlatform.isTVOS) {
     RemoteController().init();
   }
+  final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+  print(connectivityResult.toString());
   runApp(const MyApp());
 }
 

@@ -26,6 +26,10 @@ dependencies:
   flutter_bloc: ^7.0.0
   video_player: ^2.8.6
   shared_preferences: ^2.2.3
+  connectivity_plus:
+    git:
+      url: https://github.com/DenisovAV/plus_plugins.git
+      path: packages/connectivity_plus/connectivity_plus
 
 dependency_overrides:
   video_player_avfoundation:
