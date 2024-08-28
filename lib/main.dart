@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     const screen = MoviesScreen();
     return MaterialApp(
       home: BlocProvider<MoviesBloc>(
-          create: (_) => MoviesBloc()..add(MoviesEvent.initializing),
+          create: (_) => MoviesBloc()..init(),
           child: isScaled
               ? ScaleWidget(
                   child: screen,

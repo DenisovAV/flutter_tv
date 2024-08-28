@@ -49,8 +49,8 @@ BuildAppDebug() {
 
   echo " └─Compiling kernal"
 
-  "$HOST_TOOLS/dart" \
-    "$HOST_TOOLS/gen/frontend_server.dart.snapshot" \
+  "$HOST_TOOLS/dartaotruntime" \
+    "$HOST_TOOLS/gen/frontend_server_aot.dart.snapshot" \
     --sdk-root "$HOST_TOOLS/flutter_patched_sdk" \
     --tfa --target=flutter \
     -DTV_MODE=ON \
@@ -60,9 +60,8 @@ BuildAppDebug() {
 
   echo " └─Compiling JIT Snapshot"
 
-  "$DEVICE_TOOLS/gen_snapshot" --deterministic \
+  "$DEVICE_TOOLS/gen_snapshot_arm64" --deterministic \
     --enable-asserts \
-    --lazy_async_stacks \
     --isolate_snapshot_instructions="$OUTDIR/isolate_snapshot_instr" \
     --snapshot_kind=app-jit \
     --load_vm_snapshot_data="$DEVICE_TOOLS/../gen/flutter/lib/snapshot/vm_isolate_snapshot.bin" \

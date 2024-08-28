@@ -2,15 +2,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tv/domain/movie.dart';
 import 'package:flutter_tv/services/services.dart';
 
-class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
+class MoviesBloc extends Cubit<MoviesState> {
   MoviesBloc() : super(MoviesInitialState());
 
-  @override
-  Stream<MoviesState> mapEventToState(MoviesEvent event) async* {
-    if (event == MoviesEvent.initializing) {
-      final movies = await getMoviesService().getMovies();
-      yield MoviesLoadedState(movies: movies);
-    }
+  Future<void> init() async {
+    final movies = await getMoviesService().getMovies();
+    emit(MoviesLoadedState(movies: movies));
   }
 }
 

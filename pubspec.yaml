@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^7.0.0
+  flutter_bloc: ^8.1.6
   video_player: ^2.8.6
   shared_preferences: ^2.2.3
   connectivity_plus:
