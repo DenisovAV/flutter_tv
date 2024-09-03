@@ -145,7 +145,12 @@ BuildAppDebug() {
 
 BuildAppRelease() {
 
-  HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_release
+  if [[ "$cpu_arch" == "arm64" ]]; then
+    HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_release_arm64
+  else
+    HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_release
+  fi
+
   DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_release/clang_x64
 
   ROOTDIR=$(dirname "$PROJECT_DIR")
@@ -167,8 +172,8 @@ BuildAppRelease() {
 
   echo " └─Compiling kernal"
 
-  "$HOST_TOOLS/dart" -v \
-    "$HOST_TOOLS/gen/frontend_server.dart.snapshot" \
+  "$HOST_TOOLS/dartaotruntime" -v \
+    "$HOST_TOOLS/gen/frontend_server_aot.dart.snapshot" \
     --sdk-root "$HOST_TOOLS/flutter_patched_sdk" \
     --aot --tfa --target=flutter \
     -DTV_MODE=ON \
@@ -240,6 +245,7 @@ BuildApp() {
 
   echo " └─engine $FLUTTER_LOCAL_ENGINE"
 
+  echo "Build Mode $build_mode"
 
   if [[ "$PLATFORM_NAME" == "appletvsimulator" && "$build_mode" =~ "debug" ]]; then
     debug_sim="true"
