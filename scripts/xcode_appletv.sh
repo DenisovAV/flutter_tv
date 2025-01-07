@@ -13,8 +13,10 @@ BuildAppDebug() {
 
   if [[ "$cpu_arch" == "arm64" ]]; then
     HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_debug_unopt_arm64
+    gen_snapshot_command="$DEVICE_TOOLS/gen_snapshot_arm64"
   else  
-    HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_debug_unopt 
+    HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_debug_unopt
+    gen_snapshot_command="$DEVICE_TOOLS/gen_snapshot
   fi
 
 
@@ -60,7 +62,7 @@ BuildAppDebug() {
 
   echo " └─Compiling JIT Snapshot"
 
-  "$DEVICE_TOOLS/gen_snapshot_arm64" --deterministic \
+  "$gen_snapshot_command" --deterministic \
     --enable-asserts \
     --isolate_snapshot_instructions="$OUTDIR/isolate_snapshot_instr" \
     --snapshot_kind=app-jit \
@@ -147,8 +149,10 @@ BuildAppRelease() {
 
   if [[ "$cpu_arch" == "arm64" ]]; then
     HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_release_arm64
+    gen_snapshot_command="$DEVICE_TOOLS/gen_snapshot_arm64"
   else
     HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_release
+    gen_snapshot_command="$DEVICE_TOOLS/gen_snapshot"
   fi
 
   DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_release/clang_x64
@@ -182,7 +186,7 @@ BuildAppRelease() {
 
   echo " └─Compiling AOT Assembly"
 
-  "$DEVICE_TOOLS/gen_snapshot" \
+  "$gen_snapshot_command" \
     --deterministic \
     --snapshot_kind=app-aot-assembly \
     --assembly=$OUTDIR/snapshot_assembly.S $OUTDIR/app.dill
