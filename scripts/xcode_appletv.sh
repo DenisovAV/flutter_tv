@@ -11,15 +11,6 @@ debug_sim=""
 
 BuildAppDebug() {
 
-  if [[ "$cpu_arch" == "arm64" ]]; then
-    HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_debug_unopt_arm64
-    gen_snapshot_command="$DEVICE_TOOLS/gen_snapshot_arm64"
-  else  
-    HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_debug_unopt
-    gen_snapshot_command="$DEVICE_TOOLS/gen_snapshot
-  fi
-
-
   if [[ "$debug_sim" == "true" ]]; then
     if [[ "$cpu_arch" == "arm64" ]]; then
       DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_debug_sim_unopt_arm64/clang_x64
@@ -29,6 +20,15 @@ BuildAppDebug() {
   else
     DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_debug_unopt/clang_x64
   fi
+
+  if [[ "$cpu_arch" == "arm64" ]]; then
+    HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_debug_unopt_arm64
+    gen_snapshot_command="$DEVICE_TOOLS/gen_snapshot_arm64"
+  else
+    HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_debug_unopt
+    gen_snapshot_command="$DEVICE_TOOLS/gen_snapshot"
+  fi
+
 
   ROOTDIR=$(dirname "$PROJECT_DIR")
   OUTDIR=$ROOTDIR/build/ios/Debug-iphonesimulator
@@ -42,7 +42,7 @@ BuildAppDebug() {
 
   tvos_deployment_target="$TVOS_DEPLOYMENT_TARGET"
 
-#  echo " └─Copy resourcse (images & fonts)"
+#  echo " └─Copy resourcse images & fonts"
 #  mkdir -p "$OUTDIR/App.framework/flutter_assets"
 #  cp -v -R "$PROJECT_DIR/tvos_flutter_assets/flutter_assets" "$OUTDIR/App.framework"
 
@@ -90,9 +90,8 @@ BuildAppDebug() {
       -arch arm64 \
       -L"$SYSROOT/usr/lib" \
       -lSystem \
-      -fembed-bitcode-marker \
       -isysroot "$SYSROOT" \
-      -mappletvsimulator-version-min=$tvos_deployment_target \
+      -mtvos-version-min=$tvos_deployment_target \
       -dynamiclib \
       -Xlinker -rpath -Xlinker '@executable_path/Frameworks' \
       -Xlinker -rpath -Xlinker '@loader_path/Frameworks' \
@@ -103,9 +102,8 @@ BuildAppDebug() {
       -arch x86_64 \
       -L"$SYSROOT/usr/lib" \
       -lSystem \
-      -fembed-bitcode-marker \
       -isysroot "$SYSROOT" \
-      -mappletvsimulator-version-min=$tvos_deployment_target \
+      -mtvos-version-min=$tvos_deployment_target \
       -dynamiclib \
       -Xlinker -rpath -Xlinker '@executable_path/Frameworks' \
       -Xlinker -rpath -Xlinker '@loader_path/Frameworks' \
@@ -147,6 +145,8 @@ BuildAppDebug() {
 
 BuildAppRelease() {
 
+  DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_release/clang_x64
+
   if [[ "$cpu_arch" == "arm64" ]]; then
     HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_release_arm64
     gen_snapshot_command="$DEVICE_TOOLS/gen_snapshot_arm64"
@@ -154,8 +154,6 @@ BuildAppRelease() {
     HOST_TOOLS=$FLUTTER_LOCAL_ENGINE/out/host_release
     gen_snapshot_command="$DEVICE_TOOLS/gen_snapshot"
   fi
-
-  DEVICE_TOOLS=$FLUTTER_LOCAL_ENGINE/out/ios_release/clang_x64
 
   ROOTDIR=$(dirname "$PROJECT_DIR")
   OUTDIR=$ROOTDIR/build/ios/Debug-iphonesimulator
@@ -167,7 +165,7 @@ BuildAppRelease() {
 
   tvos_deployment_target="$TVOS_DEPLOYMENT_TARGET"
 
-#  echo " └─Copy resourcse (images & fonts)"
+#  echo " └─Copy resourcse images & fonts"
 #  mkdir -p "$OUTDIR/App.framework/flutter_assets"
 #  cp -R "$PROJECT_DIR/tvos_flutter_assets/flutter_assets" "$OUTDIR/App.framework"
 
@@ -277,7 +275,8 @@ else
   case $1 in
     "build")
       BuildApp ;;
-#   "embed_and_thin")
-#       "Not needed, used from flutter xcode_backend.sh script"
-  esac
+    *)
+     echo "Invalid argument: ${1}"
+    ;;
+    esac
 fi
