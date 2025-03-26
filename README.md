@@ -2,6 +2,8 @@
 
 A new Flutter for TV project.
 
+NOTE: Maintaining support for upcoming Flutter versions like 3.27 and 3.29 takes time and community effort. If you'd like to help us move faster, [consider supporting the contributors](https://ko-fi.com/flutterappletv).
+
 ![](https://github.com/DenisovAV/flutter_tv/blob/master/assets/description/preview.png)
 
 ## Getting Started
